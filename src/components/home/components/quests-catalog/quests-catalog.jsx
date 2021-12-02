@@ -9,7 +9,7 @@ import { ReactComponent as IconPuzzle } from 'assets/img/icon-puzzle.svg';
 import * as S from './quests-catalog.styled';
 
 const QuestsCatalog = () => (
-  <>
+    <>
     <S.Tabs>
       <S.TabItem>
         <S.TabBtn isActive>
@@ -224,6 +224,6 @@ const QuestsCatalog = () => (
       </S.QuestItem>
     </S.QuestsList>
   </>
-);
+  );
 
 export default QuestsCatalog;
