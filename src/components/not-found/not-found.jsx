@@ -1,6 +1,4 @@
-import {
-  MainLayout,
-} from 'components/common/common';
+import { MainLayout } from 'components/common/common';
 
 const NotFoundPage = () => (
   <MainLayout />
