@@ -6,4 +6,8 @@ export const ActionType = {
   LoadQuestRequest: 'data/loadQuestRequest',
   LoadQuestSuccess: 'data/loadQuestSuccess',
   LoadQuestError: 'data/loadQuestError',
+  ResetQuest: 'data/resetQuest',
+  SendOrderRequest: 'data/sendOrderRequest',
+  SendOrderSuccess: 'data/sendOrderSuccess',
+  SendOrderError: 'data/sendOrderError',
 }

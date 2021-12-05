@@ -1,5 +1,5 @@
 import { ApiRoute } from "const"
-import { loadQuestError, loadQuestRequest, loadQuestsError, loadQuestsRequest, loadQuestsSuccess, loadQuestSuccess } from "./action"
+import { loadQuestError, loadQuestRequest, loadQuestsError, loadQuestsRequest, loadQuestsSuccess, loadQuestSuccess, sendOrderError, sendOrderRequest, sendOrderSuccess } from "./action"
 
 export const fetchQuestsAction = () => (
   async (dispatch, _getState, api) => {
@@ -21,6 +21,19 @@ export const fetchQuestAction = (id) => (
       dispatch(loadQuestSuccess(data))
     } catch {
       dispatch(loadQuestError())
+    }
+  }
+)
+
+export const sendOrder = ({name, phone, peopleCount, isLegal}) => (
+  async (dispatch, _getState, api) => {
+    dispatch(sendOrderRequest())
+    try {
+      const {data} = await api.post(ApiRoute.Application, {name, phone, peopleCount, isLegal});
+      console.log(data);
+      dispatch(sendOrderSuccess());
+    } catch {
+      dispatch(sendOrderError())
     }
   }
 )

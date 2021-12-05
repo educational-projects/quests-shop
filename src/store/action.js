@@ -34,4 +34,10 @@ export const loadQuestSuccess = createAction(
   }),
 );
 
-export const loadQuestError = createAction(ActionType.LoadQuestError)
+export const loadQuestError = createAction(ActionType.LoadQuestError);
+
+export const resetQuest = createAction(ActionType.ResetQuest);
+
+export const sendOrderRequest = createAction(ActionType.SendOrderRequest);
+export const sendOrderSuccess = createAction(ActionType.SendOrderSuccess);
+export const sendOrderError = createAction(ActionType.SendOrderError);

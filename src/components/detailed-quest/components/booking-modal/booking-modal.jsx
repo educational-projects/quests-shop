@@ -1,8 +1,58 @@
 import * as S from './booking-modal.styled';
 import { ReactComponent as IconClose } from 'assets/img/icon-close.svg';
+import { useDispatch } from 'react-redux';
+import { sendOrder } from 'store/api-actions';
+import { useState } from 'react';
+import { FormType } from 'const';
 
-const BookingModal = ({onButtonClick}) => (
-  <S.BlockLayer>
+const formFields = {
+  name: 'Ваше Имя',
+  phone: 'Контактный телефон',
+  peopleCount: 'Количество участников',
+}
+
+const BookingModal = ({onButtonClick}) => {
+  const dispatch = useDispatch();
+
+  const [formState, setFormState] = useState({
+    name: {
+      value: '',
+    },
+    phone: {
+      value: '',
+    },
+    peopleCount: {
+      value: '',
+    },
+    isLegal: {
+      value: false
+    }
+  })
+
+  const handleChange = ({target}) => {
+    const {name, value} = target;
+
+    setFormState({
+      ...formState,
+      [name]: {
+        value: value,
+      },
+    });
+  };
+
+  const handleSubmitForm = (evt) => {
+    evt.preventDefault();
+
+    dispatch(sendOrder({
+      name: formState.name.value,
+      phone: formState.phone.value,
+      peopleCount: Number(formState.peopleCount.value),
+      isLegal: formState.isLegal.value,
+    }))
+  };
+
+  return (
+    <S.BlockLayer>
     <S.Modal>
       <S.ModalCloseBtn onClick={onButtonClick}>
         <IconClose width="16" height="16" />
@@ -13,41 +63,22 @@ const BookingModal = ({onButtonClick}) => (
         action="https://echo.htmlacademy.ru"
         method="post"
         id="booking-form"
+        onSubmit={handleSubmitForm}
       >
-        <S.BookingField>
-          <S.BookingLabel htmlFor="booking-name">Ваше Имя</S.BookingLabel>
-          <S.BookingInput
-            type="text"
-            id="booking-name"
-            name="booking-name"
-            placeholder="Имя"
-            required
-          />
-        </S.BookingField>
-        <S.BookingField>
-          <S.BookingLabel htmlFor="booking-phone">
-            Контактный телефон
-          </S.BookingLabel>
-          <S.BookingInput
-            type="tel"
-            id="booking-phone"
-            name="booking-phone"
-            placeholder="Телефон"
-            required
-          />
-        </S.BookingField>
-        <S.BookingField>
-          <S.BookingLabel htmlFor="booking-people">
-            Количество участников
-          </S.BookingLabel>
-          <S.BookingInput
-            type="number"
-            id="booking-people"
-            name="booking-people"
-            placeholder="Количество участников"
-            required
-          />
-        </S.BookingField>
+        {Object.entries(formFields).map(([name, label]) => (
+                  <S.BookingField key={name}>
+                  <S.BookingLabel htmlFor={name}>{label}</S.BookingLabel>
+                  <S.BookingInput
+                    type={FormType[name]}
+                    id={name}
+                    name={name}
+                    placeholder={label}
+                    value={formState[name].value}
+                    required
+                    onChange={handleChange}
+                  />
+                </S.BookingField>
+        ))}
         <S.BookingSubmit type="submit">Отправить заявку</S.BookingSubmit>
         <S.BookingCheckboxWrapper>
           <S.BookingCheckboxInput
@@ -55,6 +86,8 @@ const BookingModal = ({onButtonClick}) => (
             id="booking-legal"
             name="booking-legal"
             required
+            value={formState.isLegal.value}
+            onChange={() => setFormState({...formState, isLegal: {value: !formState.isLegal.value}})}
           />
           <S.BookingCheckboxLabel
             className="checkbox-label"
@@ -72,6 +105,7 @@ const BookingModal = ({onButtonClick}) => (
       </S.BookingForm>
     </S.Modal>
   </S.BlockLayer>
-);
+  )
+};
 
 export default BookingModal;

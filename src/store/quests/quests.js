@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { loadQuestError, loadQuestRequest, loadQuestsError, loadQuestsRequest, loadQuestsSuccess, loadQuestSuccess } from 'store/action';
+import { loadQuestError, loadQuestRequest, loadQuestsError, loadQuestsRequest, loadQuestsSuccess, loadQuestSuccess, resetQuest } from 'store/action';
 
 const initialState = {
   quests: [],
@@ -35,6 +35,11 @@ const quests = createReducer(initialState, (builder) => {
   .addCase(loadQuestError, (state) => {
     state.questLoading = false;
     state.questError = true;
+  })
+  .addCase(resetQuest, (state) => {
+    state.quest = null;
+    state.questLoading = false;
+    state.questError = false;
   })
 })
 

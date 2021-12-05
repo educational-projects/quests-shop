@@ -6,6 +6,7 @@ export const AppRoute = {
 
 export const ApiRoute = {
   Quests: '/quests',
+  Application: '/orders',
 }
 
 export const Complexity = {
@@ -20,4 +21,10 @@ export const QuestType = {
   mystic: 'мистика',
   detective: 'детектив',
   'sci-fi': 'научно-фантастический'
+}
+
+export const FormType = {
+  name: 'text',
+  phone: 'tel',
+  peopleCount: 'number',
 }

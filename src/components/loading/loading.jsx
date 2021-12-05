@@ -1,8 +1,9 @@
 import { MainLayout } from 'components/common/common';
 
-const NotFoundPage = () => (
+const LoadingPage = () => (
   <MainLayout>
+    <div>'dsddasda'</div>
   </MainLayout>
 )
 
-export default NotFoundPage
+export default LoadingPage

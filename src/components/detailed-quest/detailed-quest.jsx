@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { MainLayout } from 'components/common/common';
 import { ReactComponent as IconClock } from 'assets/img/icon-clock.svg';
 import { ReactComponent as IconPerson } from 'assets/img/icon-person.svg';
@@ -9,26 +9,40 @@ import { useParams } from 'react-router';
 import { useDispatch } from 'react-redux';
 import { fetchQuestAction } from 'store/api-actions';
 import { useSelector } from 'react-redux';
-import { getQuest } from 'store/quests/selectors';
+import { getQuest, getQuestError, getQuestLoading } from 'store/quests/selectors';
 import NotFoundPage from 'components/not-found/not-found';
 import { Complexity, QuestType } from 'const';
+import LoadingPage from 'components/loading/loading';
+import { resetQuest } from 'store/action';
 
 const DetailedQuest = () => {
   const {id} = useParams();
   const dispatch = useDispatch();
   const [isBookingModalOpened, setIsBookingModalOpened] = useState(false);
 
+  const onPageUnload = useCallback(() => {
+    dispatch(resetQuest())
+  }, [dispatch])
+
   const quest = useSelector(getQuest)
+  const questError = useSelector(getQuestError)
+  const questLoading = useSelector(getQuestLoading)
 
   useEffect(() => {
     dispatch(fetchQuestAction(id))
-  }, [dispatch, id])
+
+    return () => onPageUnload()
+  }, [dispatch, id, onPageUnload])
 
   const onBookingBtnClick = () => {
     setIsBookingModalOpened(!isBookingModalOpened);
   };
 
-  if(!quest) {
+  if(questLoading) {
+    return <LoadingPage/>
+  }
+
+  if(!quest || questError) {
     return <NotFoundPage/>
   }
 
