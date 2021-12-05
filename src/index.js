@@ -1,5 +1,5 @@
 import { StrictMode } from 'react';
-import { render } from 'react-dom';
+import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import App from 'components/app/app';
 import { configureStore } from '@reduxjs/toolkit';
@@ -21,7 +21,7 @@ const store = configureStore({
 
 store.dispatch(fetchQuestsAction())
 
-render(
+ReactDOM.render(
   <StrictMode>
     <Provider store={store}>
     <App />
