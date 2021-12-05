@@ -24,15 +24,15 @@ const DetailedQuest = () => {
     dispatch(resetQuest())
   }, [dispatch])
 
-  const quest = useSelector(getQuest)
-  const questError = useSelector(getQuestError)
-  const questLoading = useSelector(getQuestLoading)
-
   useEffect(() => {
     dispatch(fetchQuestAction(id))
 
     return () => onPageUnload()
   }, [dispatch, id, onPageUnload])
+
+  const quest = useSelector(getQuest)
+  const questError = useSelector(getQuestError)
+  const questLoading = useSelector(getQuestLoading)
 
   const onBookingBtnClick = () => {
     setIsBookingModalOpened(!isBookingModalOpened);

@@ -11,5 +11,8 @@ export const getQuestLoading = (state) => state[NameSpace.Quests].questLoading;
 export const getFilteredQuests = createSelector(
   [getQuests, getCurrentFilter],
   (quests, currentFilter) => quests
-  .filter((quest) => QuestTypeToRussian[quest.type] === currentFilter || currentFilter === QuestTypeToRussian.allQuests),
+  .filter((quest) => currentFilter === QuestTypeToRussian.allQuests
+  ? quests
+  : QuestTypeToRussian[quest.type] === currentFilter
+  ),
 );
