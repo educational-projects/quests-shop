@@ -9,18 +9,19 @@ export const ApiRoute = {
   Application: '/orders',
 }
 
-export const Complexity = {
+export const ComplexityToRussian = {
   hard: 'сложный',
   medium: 'средний',
   easy: 'легкий',
 }
 
-export const QuestType = {
-  adventures: 'приключения',
-  horror: 'ужасы',
-  mystic: 'мистика',
-  detective: 'детектив',
-  'sci-fi': 'научно-фантастический'
+export const QuestTypeToRussian = {
+  allQuests: 'Все квесты',
+  adventures: 'Приключения',
+  horror: 'Ужасы',
+  mystic: 'Мистика',
+  detective: 'Детектив',
+  'sci-fi': 'Sci-fi'
 }
 
 export const FormType = {

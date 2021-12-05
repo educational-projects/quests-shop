@@ -1,8 +1,10 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { changeFilter, sendOrderError, sendOrderRequest, sendOrderSuccess } from 'store/action';
 
+const DEFAULT_FILTER = 'Все квесты'
+
 const initialState = {
-  currentFilter: 'Все квесты',
+  currentFilter: DEFAULT_FILTER,
   sendOrderLoading: false,
 };
 

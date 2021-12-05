@@ -11,7 +11,7 @@ import { fetchQuestAction } from 'store/api-actions';
 import { useSelector } from 'react-redux';
 import { getQuest, getQuestError, getQuestLoading } from 'store/quests/selectors';
 import NotFoundPage from 'components/not-found/not-found';
-import { Complexity, QuestType } from 'const';
+import { ComplexityToRussian, QuestTypeToRussian } from 'const';
 import LoadingPage from 'components/loading/loading';
 import { resetQuest } from 'store/action';
 
@@ -58,7 +58,7 @@ const DetailedQuest = () => {
         <S.PageContentWrapper>
           <S.PageHeading>
             <S.PageTitle>{quest.title}</S.PageTitle>
-            <S.PageSubtitle>{QuestType[quest.type]}</S.PageSubtitle>
+            <S.PageSubtitle>{QuestTypeToRussian[quest.type]}</S.PageSubtitle>
           </S.PageHeading>
 
           <S.PageDescription>
@@ -73,7 +73,7 @@ const DetailedQuest = () => {
               </S.FeaturesItem>
               <S.FeaturesItem>
                 <IconPuzzle width="24" height="24" />
-                <S.FeatureTitle>{Complexity[quest.level]}</S.FeatureTitle>
+                <S.FeatureTitle>{ComplexityToRussian[quest.level]}</S.FeatureTitle>
               </S.FeaturesItem>
             </S.Features>
 

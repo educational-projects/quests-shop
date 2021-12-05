@@ -1,63 +1,35 @@
-import { ReactComponent as IconAllQuests } from 'assets/img/icon-all-quests.svg';
-import { ReactComponent as IconAdventures } from 'assets/img/icon-adventures.svg';
-import { ReactComponent as IconHorrors } from 'assets/img/icon-horrors.svg';
-import { ReactComponent as IconMystic } from 'assets/img/icon-mystic.svg';
-import { ReactComponent as IconDetective } from 'assets/img/icon-detective.svg';
-import { ReactComponent as IconScifi } from 'assets/img/icon-scifi.svg';
 import { ReactComponent as IconPerson } from 'assets/img/icon-person.svg';
 import { ReactComponent as IconPuzzle } from 'assets/img/icon-puzzle.svg';
 import * as S from './quests-catalog.styled';
 import { useSelector } from 'react-redux';
-import { getQuests } from 'store/quests/selectors';
-import { Complexity } from 'const';
+import { ComplexityToRussian } from 'const';
+import { FilersType } from './constants';
+import { getCurrentFilter } from 'store/app/selectors';
+import { useDispatch } from 'react-redux';
+import { changeFilter } from 'store/action';
+import { getFilteredQuests } from 'store/quests/selectors';
 
 const QuestsCatalog = () => {
-  const quests = useSelector(getQuests)
+  const dispatch = useDispatch();
+  const quests = useSelector(getFilteredQuests);
+  const currentFilter = useSelector(getCurrentFilter);
 
   return (
     <>
     <S.Tabs>
-      <S.TabItem>
-        <S.TabBtn isActive>
-          <IconAllQuests />
-          <S.TabTitle>Все квесты</S.TabTitle>
-        </S.TabBtn>
-      </S.TabItem>
-
-      <S.TabItem>
-        <S.TabBtn>
-          <IconAdventures />
-          <S.TabTitle>Приключения</S.TabTitle>
-        </S.TabBtn>
-      </S.TabItem>
-
-      <S.TabItem>
-        <S.TabBtn>
-          <IconHorrors />
-          <S.TabTitle>Ужасы</S.TabTitle>
-        </S.TabBtn>
-      </S.TabItem>
-
-      <S.TabItem>
-        <S.TabBtn>
-          <IconMystic />
-          <S.TabTitle>Мистика</S.TabTitle>
-        </S.TabBtn>
-      </S.TabItem>
-
-      <S.TabItem>
-        <S.TabBtn>
-          <IconDetective />
-          <S.TabTitle>Детектив</S.TabTitle>
-        </S.TabBtn>
-      </S.TabItem>
-
-      <S.TabItem>
-        <S.TabBtn>
-          <IconScifi />
-          <S.TabTitle>Sci-fi</S.TabTitle>
-        </S.TabBtn>
-      </S.TabItem>
+      {FilersType.map(({title, icon: Icon}) => {
+        return (
+          <S.TabItem
+          onClick={() => dispatch(changeFilter(title))}
+          key={title}
+          >
+          <S.TabBtn isActive={currentFilter === title}>
+            <Icon />
+            <S.TabTitle>{title}</S.TabTitle>
+          </S.TabBtn>
+        </S.TabItem>
+        )
+      })}
     </S.Tabs>
 
     <S.QuestsList>
@@ -71,10 +43,8 @@ const QuestsCatalog = () => {
                     height="232"
                     alt={`квест ${title}`}
                   />
-
                   <S.QuestContent>
                     <S.QuestTitle>{title}</S.QuestTitle>
-
                     <S.QuestFeatures>
                       <S.QuestFeatureItem>
                         <IconPerson />
@@ -82,7 +52,7 @@ const QuestsCatalog = () => {
                       </S.QuestFeatureItem>
                       <S.QuestFeatureItem>
                         <IconPuzzle />
-                        {Complexity[level]}
+                        {ComplexityToRussian[level]}
                       </S.QuestFeatureItem>
                     </S.QuestFeatures>
                   </S.QuestContent>
