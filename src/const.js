@@ -28,3 +28,8 @@ export const FormType = {
   phone: 'tel',
   peopleCount: 'number',
 }
+
+export const ToastMessage = {
+  SendForm: 'Ваша заявка успешно отправлена',
+  SendFormError: 'Не удалось отправить форму, проверьте правильность данных',
+}
