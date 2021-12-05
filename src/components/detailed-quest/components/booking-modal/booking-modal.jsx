@@ -11,23 +11,30 @@ const formFields = {
   peopleCount: 'Количество участников',
 }
 
+const initialState = {
+  name: {
+    value: '',
+  },
+  phone: {
+    value: '',
+  },
+  peopleCount: {
+    value: '',
+  },
+  isLegal: {
+    value: false
+  }
+}
+
 const BookingModal = ({onButtonClick}) => {
   const dispatch = useDispatch();
 
-  const [formState, setFormState] = useState({
-    name: {
-      value: '',
-    },
-    phone: {
-      value: '',
-    },
-    peopleCount: {
-      value: '',
-    },
-    isLegal: {
-      value: false
-    }
-  })
+  const [formState, setFormState] = useState(initialState)
+
+  const resetForm = () => {
+    setFormState(initialState);
+    onButtonClick();
+  }
 
   const handleChange = ({target}) => {
     const {name, value} = target;
@@ -48,7 +55,7 @@ const BookingModal = ({onButtonClick}) => {
       phone: formState.phone.value,
       peopleCount: Number(formState.peopleCount.value),
       isLegal: formState.isLegal.value,
-    }))
+    }, resetForm))
   };
 
   return (

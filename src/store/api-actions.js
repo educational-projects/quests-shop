@@ -3,37 +3,37 @@ import { loadQuestError, loadQuestRequest, loadQuestsError, loadQuestsRequest, l
 
 export const fetchQuestsAction = () => (
   async (dispatch, _getState, api) => {
-    dispatch(loadQuestsRequest())
+    dispatch(loadQuestsRequest());
     try {
       const {data} = await api.get(ApiRoute.Quests)
-      dispatch(loadQuestsSuccess(data))
+      dispatch(loadQuestsSuccess(data));
     } catch {
-      dispatch(loadQuestsError())
+      dispatch(loadQuestsError());
     }
   }
 )
 
 export const fetchQuestAction = (id) => (
   async (dispatch, _getState, api) => {
-    dispatch(loadQuestRequest())
+    dispatch(loadQuestRequest());
     try {
-      const {data} = await api.get(`${ApiRoute.Quests}/${id}`)
-      dispatch(loadQuestSuccess(data))
+      const {data} = await api.get(`${ApiRoute.Quests}/${id}`);
+      dispatch(loadQuestSuccess(data));
     } catch {
-      dispatch(loadQuestError())
+      dispatch(loadQuestError());
     }
   }
 )
 
-export const sendOrder = ({name, phone, peopleCount, isLegal}) => (
+export const sendOrder = ({name, phone, peopleCount, isLegal}, resetForm) => (
   async (dispatch, _getState, api) => {
-    dispatch(sendOrderRequest())
+    dispatch(sendOrderRequest());
     try {
-      const {data} = await api.post(ApiRoute.Application, {name, phone, peopleCount, isLegal});
-      console.log(data);
+      await api.post(ApiRoute.Application, {name, phone, peopleCount, isLegal});
       dispatch(sendOrderSuccess());
+      resetForm();
     } catch {
-      dispatch(sendOrderError())
+      dispatch(sendOrderError());
     }
   }
 )
