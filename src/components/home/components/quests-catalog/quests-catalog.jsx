@@ -8,6 +8,7 @@ import { getCurrentFilter } from 'store/app/selectors';
 import { useDispatch } from 'react-redux';
 import { changeFilter } from 'store/action';
 import { getFilteredQuests } from 'store/quests/selectors';
+import { getCapitalizingString } from 'utils/utils';
 
 const QuestsCatalog = () => {
   const dispatch = useDispatch();
@@ -52,7 +53,7 @@ const QuestsCatalog = () => {
                       </S.QuestFeatureItem>
                       <S.QuestFeatureItem>
                         <IconPuzzle />
-                        {ComplexityToRussian[level]}
+                        {ComplexityToRussian[getCapitalizingString(level)]}
                       </S.QuestFeatureItem>
                     </S.QuestFeatures>
                   </S.QuestContent>

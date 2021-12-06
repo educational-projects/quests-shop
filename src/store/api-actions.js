@@ -1,9 +1,9 @@
 import { ApiRoute, ToastMessage } from "const"
+import cogoToast from 'cogo-toast';
 import {
   loadQuestError, loadQuestRequest, loadQuestsError, loadQuestsRequest, loadQuestsSuccess,
   loadQuestSuccess, sendOrderError, sendOrderRequest, sendOrderSuccess
    } from "./action"
-import cogoToast from 'cogo-toast';
 
 export const fetchQuestsAction = () => (
   async (dispatch, _getState, api) => {

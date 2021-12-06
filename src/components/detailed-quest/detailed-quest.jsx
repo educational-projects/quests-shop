@@ -14,6 +14,7 @@ import NotFoundPage from 'components/not-found/not-found';
 import { ComplexityToRussian, QuestTypeToRussian } from 'const';
 import LoadingPage from 'components/loading/loading';
 import { resetQuest } from 'store/action';
+import { getCapitalizingString } from 'utils/utils';
 
 const DetailedQuest = () => {
   const {id} = useParams();
@@ -58,7 +59,7 @@ const DetailedQuest = () => {
         <S.PageContentWrapper>
           <S.PageHeading>
             <S.PageTitle>{quest.title}</S.PageTitle>
-            <S.PageSubtitle>{QuestTypeToRussian[quest.type]}</S.PageSubtitle>
+            <S.PageSubtitle>{QuestTypeToRussian[getCapitalizingString(quest.type)]}</S.PageSubtitle>
           </S.PageHeading>
 
           <S.PageDescription>
@@ -73,7 +74,9 @@ const DetailedQuest = () => {
               </S.FeaturesItem>
               <S.FeaturesItem>
                 <IconPuzzle width="24" height="24" />
-                <S.FeatureTitle>{ComplexityToRussian[quest.level]}</S.FeatureTitle>
+                <S.FeatureTitle>
+                  {ComplexityToRussian[getCapitalizingString(quest.level)]}
+                </S.FeatureTitle>
               </S.FeaturesItem>
             </S.Features>
 

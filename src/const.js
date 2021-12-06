@@ -10,24 +10,18 @@ export const ApiRoute = {
 }
 
 export const ComplexityToRussian = {
-  hard: 'сложный',
-  medium: 'средний',
-  easy: 'легкий',
+  Hard: 'сложный',
+  Medium: 'средний',
+  Easy: 'легкий',
 }
 
 export const QuestTypeToRussian = {
-  allQuests: 'Все квесты',
-  adventures: 'Приключения',
-  horror: 'Ужасы',
-  mystic: 'Мистика',
-  detective: 'Детектив',
-  'sci-fi': 'Sci-fi'
-}
-
-export const FormType = {
-  name: 'text',
-  phone: 'tel',
-  peopleCount: 'number',
+  AllQuests: 'Все квесты',
+  Adventures: 'Приключения',
+  Horror: 'Ужасы',
+  Mystic: 'Мистика',
+  Detective: 'Детектив',
+  'Sci-fi': 'Sci-fi'
 }
 
 export const ToastMessage = {

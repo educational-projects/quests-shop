@@ -3,13 +3,9 @@ import { ReactComponent as IconClose } from 'assets/img/icon-close.svg';
 import { useDispatch } from 'react-redux';
 import { sendOrder } from 'store/api-actions';
 import { useState } from 'react';
-import { FormType } from 'const';
-
-const formFields = {
-  name: 'Ваше Имя',
-  phone: 'Контактный телефон',
-  peopleCount: 'Количество участников',
-}
+import { FormsType } from './constants';
+import { useSelector } from 'react-redux';
+import { getSendOrderLoading } from 'store/app/selectors';
 
 const initialState = {
   name: {
@@ -28,15 +24,15 @@ const initialState = {
 
 const BookingModal = ({onButtonClick}) => {
   const dispatch = useDispatch();
-
-  const [formState, setFormState] = useState(initialState)
+  const sendOrderLoading = useSelector(getSendOrderLoading);
+  const [formState, setFormState] = useState(initialState);
 
   const resetForm = () => {
     setFormState(initialState);
     onButtonClick();
-  }
+  };
 
-  const handleChange = ({target}) => {
+  const handleInputChange = ({target}) => {
     const {name, value} = target;
 
     setFormState({
@@ -47,7 +43,7 @@ const BookingModal = ({onButtonClick}) => {
     });
   };
 
-  const handleSubmitForm = (evt) => {
+  const handleFormSubmit = (evt) => {
     evt.preventDefault();
 
     dispatch(sendOrder({
@@ -57,6 +53,8 @@ const BookingModal = ({onButtonClick}) => {
       isLegal: formState.isLegal.value,
     }, resetForm))
   };
+
+  const isDisabled = sendOrderLoading;
 
   return (
     <S.BlockLayer>
@@ -70,23 +68,28 @@ const BookingModal = ({onButtonClick}) => {
         action="https://echo.htmlacademy.ru"
         method="post"
         id="booking-form"
-        onSubmit={handleSubmitForm}
+        onSubmit={handleFormSubmit}
       >
-        {Object.entries(formFields).map(([name, label]) => (
-                  <S.BookingField key={name}>
-                  <S.BookingLabel htmlFor={name}>{label}</S.BookingLabel>
-                  <S.BookingInput
-                    type={FormType[name]}
-                    id={name}
-                    name={name}
-                    placeholder={label}
-                    value={formState[name].value}
-                    required
-                    onChange={handleChange}
-                  />
-                </S.BookingField>
+        {FormsType.map(({id, title, placeholder, type}) => (
+          <S.BookingField key={id}>
+            <S.BookingLabel htmlFor={id}>{title}</S.BookingLabel>
+            <S.BookingInput
+              type={type}
+              id={id}
+              name={id}
+              placeholder={placeholder}
+              value={formState[id].value}
+              required
+              onChange={handleInputChange}
+            />
+          </S.BookingField>
         ))}
-        <S.BookingSubmit type="submit">Отправить заявку</S.BookingSubmit>
+        <S.BookingSubmit
+          type="submit"
+          disabled={isDisabled}
+        >
+          Отправить заявку
+        </S.BookingSubmit>
         <S.BookingCheckboxWrapper>
           <S.BookingCheckboxInput
             type="checkbox"
