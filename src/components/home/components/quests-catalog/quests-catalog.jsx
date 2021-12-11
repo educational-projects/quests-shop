@@ -7,13 +7,19 @@ import { FilersType } from './constants';
 import { getCurrentFilter } from 'store/app/selectors';
 import { useDispatch } from 'react-redux';
 import { changeFilter } from 'store/action';
-import { getFilteredQuests } from 'store/quests/selectors';
-import { getCapitalizingString } from 'utils/utils';
+import { getFilteredQuests, getQuestsLoading } from 'store/quests/selectors';
+import { getCapitalizedWord } from 'utils/utils';
+import LoadingPage from 'components/loading/loading';
 
 const QuestsCatalog = () => {
   const dispatch = useDispatch();
   const quests = useSelector(getFilteredQuests);
+  const questsLoading = useSelector(getQuestsLoading);
   const currentFilter = useSelector(getCurrentFilter);
+
+  if (questsLoading) {
+    return <LoadingPage/>
+  }
 
   return (
     <>
@@ -53,7 +59,7 @@ const QuestsCatalog = () => {
                       </S.QuestFeatureItem>
                       <S.QuestFeatureItem>
                         <IconPuzzle />
-                        {ComplexityToRussian[getCapitalizingString(level)]}
+                        {ComplexityToRussian[getCapitalizedWord(level)]}
                       </S.QuestFeatureItem>
                     </S.QuestFeatures>
                   </S.QuestContent>

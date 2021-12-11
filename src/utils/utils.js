@@ -1,4 +1,1 @@
-export const getCapitalizingString = (string) => string
-  .split(/\s+/)
-  .map((word) => word[0].toUpperCase() + word.substring(1).toLowerCase())
-  .join(' ');
+export const getCapitalizedWord = (word) => word[0].toUpperCase() + word.slice(1);
